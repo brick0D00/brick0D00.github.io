@@ -4,15 +4,26 @@
   <meta charset="utf-8">
   
   
-  <title>Hexo</title>
+  <title>第一次ret2shellcode | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="#简介这次学习了一道ret2shellcode先来对文件检测一下 再用IDA来打开文件看到这里面有一个gets函数以及一个没在主函数里面定义的变量buf2查看一下发现位于bss段（具有执行权限）IDA检测的结果可能不准确运用gdb动态调试查看栈的情况发现eax写入的地址距离ebp有108再加上4字节的previou ebp总计112字节数据到达retadd开始构造exp：先得知目标地址即buf2的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一次ret2shellcode">
+<meta property="og:url" content="http://example.com/2023/08/02/%E7%AC%AC%E4%B8%80%E6%AC%A1ret2shellcode/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#简介这次学习了一道ret2shellcode先来对文件检测一下 再用IDA来打开文件看到这里面有一个gets函数以及一个没在主函数里面定义的变量buf2查看一下发现位于bss段（具有执行权限）IDA检测的结果可能不准确运用gdb动态调试查看栈的情况发现eax写入的地址距离ebp有108再加上4字节的previou ebp总计112字节数据到达retadd开始构造exp：先得知目标地址即buf2的">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/1.1.png">
+<meta property="og:image" content="http://example.com/images/1.2.png">
+<meta property="og:image" content="http://example.com/images/1.3.png">
+<meta property="og:image" content="http://example.com/images/1.3.png">
+<meta property="og:image" content="http://example.com/images/1.4.png">
+<meta property="og:image" content="http://example.com/images/1.5.png">
+<meta property="article:published_time" content="2023-08-02T14:44:34.000Z">
+<meta property="article:modified_time" content="2023-08-03T16:04:10.160Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/1.1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -71,48 +82,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-第一次ret2syscall" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/08/16/%E7%AC%AC%E4%B8%80%E6%AC%A1ret2syscall/" class="article-date">
-  <time class="dt-published" datetime="2023-08-16T15:52:34.000Z" itemprop="datePublished">2023-08-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/08/16/%E7%AC%AC%E4%B8%80%E6%AC%A1ret2syscall/">第一次ret2syscall</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>#简介<br>这次学习了一道ret2syscall<br>用checksec检测<br><img src="/images/2.1.png"><br>看到这开启了部分保护，没有开启栈溢出保护<br>反编译查看一下main函数<br><img src="/images/2.2.png"><br>发现存在一个gets函数，结合题目决定构造ROP链<br><img src="/images/2.6.png"><br>先用gdb动态调试查看一下栈的情况<br><img src="/images/2.3.png"><br>计算出需要108+4即112的垃圾数据<br>用shift+F12发现有&#x2F;bin&#x2F;sh字符串存在，然后利用ROPgadget寻找组件构造ROP链<br><img src="/images/2.4.png"><br>这里发现选取两条即可<br>开始构造exp：<br><img src="/images/2.5.png"><br>这里用到了一个flat函数，flat函数接收的是列表list类的数据，并将其转化为字节型的数据，同时不足一个字长的数据也会自动补充。<br>运行exp后成功获取权限。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/08/16/%E7%AC%AC%E4%B8%80%E6%AC%A1ret2syscall/" data-id="clleph21k0001d8kwd6mnfojl" data-title="第一次ret2syscall" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-第一次ret2shellcode" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-第一次ret2shellcode" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/08/02/%E7%AC%AC%E4%B8%80%E6%AC%A1ret2shellcode/" class="article-date">
   <time class="dt-published" datetime="2023-08-02T14:44:34.000Z" itemprop="datePublished">2023-08-02</time>
@@ -125,8 +95,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/08/02/%E7%AC%AC%E4%B8%80%E6%AC%A1ret2shellcode/">第一次ret2shellcode</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      第一次ret2shellcode
     </h1>
   
 
@@ -147,11 +117,23 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
+  
+    <a href="/2023/08/16/%E7%AC%AC%E4%B8%80%E6%AC%A1ret2syscall/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          第一次ret2syscall
+        
+      </div>
+    </a>
+  
+  
+</nav>
 
   
+</article>
 
 
 </section>
